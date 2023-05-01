@@ -11,11 +11,15 @@ export const getWeather = async (city) => {
     );
   }
 
+  if (!city && !process.env.CITY) {
+    throw new Error("Не задан город, задайте его через команду -s [CITY]");
+  }
+
   const { data } = await axios.get(
     "https://api.openweathermap.org/data/2.5/weather",
     {
       params: {
-        q: city,
+        q: process.env.CITY ?? city,
         appid: token,
         lang: "ru",
         units: "metric",

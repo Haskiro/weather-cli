@@ -1,6 +1,29 @@
 import axios from "axios";
 import { TOKEN_DICTIONARY, getKeyValue } from "./storage.service.js";
 
+export const getIcon = (icon) => {
+  switch (icon.slice(0, -1)) {
+    case "01":
+      return "☀️";
+    case "02":
+      return "🌤️";
+    case "03":
+      return "☁️";
+    case "04":
+      return "☁️";
+    case "09":
+      return "🌧️";
+    case "10":
+      return "🌦️";
+    case "11":
+      return "🌩️";
+    case "13":
+      return "❄️";
+    case "50":
+      return "🌫️";
+  }
+};
+
 export const getWeather = async (city) => {
   const token =
     process.env.TOKEN ?? (await getKeyValue(TOKEN_DICTIONARY.token));
@@ -11,7 +34,7 @@ export const getWeather = async (city) => {
     );
   }
 
-  if (!city && !process.env.CITY) {
+  if (!city) {
     throw new Error("Не задан город, задайте его через команду -s [CITY]");
   }
 
@@ -19,13 +42,12 @@ export const getWeather = async (city) => {
     "https://api.openweathermap.org/data/2.5/weather",
     {
       params: {
-        q: process.env.CITY ?? city,
+        q: city,
         appid: token,
         lang: "ru",
         units: "metric",
       },
     }
   );
-  console.log(data);
   return data;
 };

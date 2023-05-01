@@ -1,7 +1,7 @@
 {
-  "name": "weather-cli",
+  "name": "weather-cli-haskiro",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "description": "cli for getting weather",
   "main": "weather.js",
   "bin": {
@@ -9,7 +9,7 @@
   },
   "type": "module",
   "scripts": {
-    "start": "node index.js",
+    "start": "node weather.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -20,11 +20,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": ""
-  },
-  "bugs": {
-    "url": "",
-    "email": "kondratev.pacha@mail.ru"
+    "url": "https://github.com/Haskiro/weather-cli"
   },
   "dependencies": {
     "axios": "^1.4.0",

@@ -10,10 +10,25 @@ const saveToken = async (token) => {
     return;
   }
   try {
-    await saveKeyValue(TOKEN_DICTIONARY.token, token);
+    await saveKeyValue(TOKEN_DICTIONARY.token ?? "moscow", token);
     printSuccess("Токен сохранен");
   } catch (e) {
     printError(e.message);
+  }
+};
+
+const getForcast = async () => {
+  try {
+    const weather = await getWeather(process.env.CITY);
+    console.log(weather);
+  } catch (e) {
+    if (e?.response?.status === 404) {
+      printError("Неверно указан город");
+    } else if (e?.response?.status === 401) {
+      printError("Неверно указан токен");
+    } else {
+      printError(e.message);
+    }
   }
 };
 
@@ -30,8 +45,7 @@ const initCLI = () => {
     saveToken(args.t);
   }
 
-  getWeather("Москва");
-  //   getCoordByCityName("Москва");
+  getForcast();
 };
 
 initCLI();
